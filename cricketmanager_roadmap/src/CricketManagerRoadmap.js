@@ -522,13 +522,297 @@ function CricketManagerRoadmap() {
           </section>
         );
       case "leaderboard":
+        // Example leaderboard data (static sample for demo)
+        const teamLeaderboard = [
+          { rank: 1, name: "Thunderbolts", played: 8, won: 7, pts: 14, nrr: "+1.62" },
+          { rank: 2, name: "Strikers", played: 8, won: 6, pts: 12, nrr: "+1.11" },
+          { rank: 3, name: "Panthers", played: 8, won: 5, pts: 10, nrr: "+0.85" },
+          { rank: 4, name: "Hurricanes", played: 8, won: 4, pts: 8, nrr: "+0.42" }
+        ];
+        const playerLeaderboard = [
+          { rank: 1, name: "A. Sharma", team: "Thunderbolts", runs: 502, wickets: 9 },
+          { rank: 2, name: "R. Kumar", team: "Strikers", runs: 433, wickets: 7 },
+          { rank: 3, name: "L. James", team: "Panthers", runs: 389, wickets: 14 },
+          { rank: 4, name: "S. Patel", team: "Hurricanes", runs: 341, wickets: 3 }
+        ];
         return (
           <section>
-            <h2>Leaderboard</h2>
-            <p>
-              See team and player rankings based on performance.
+            <h2 style={{ color: COLORS.primary, marginBottom: 10 }}>Leaderboard</h2>
+            <p style={{ color: COLORS.secondary, marginBottom: 22 }}>
+              See team and player rankings based on performance this season.
             </p>
-            {/* Future: Rankings table */}
+
+            {/* Team Leaderboard Table */}
+            <div
+              style={{
+                overflowX: "auto",
+                background: "#f7faff",
+                borderRadius: 14,
+                border: `1px solid ${COLORS.primary}18`,
+                boxShadow: "0 1px 8px 0 rgba(30,136,229,0.07)",
+                marginBottom: 32,
+                padding: "18px 10px 8px 10px",
+                maxWidth: 520
+              }}
+              aria-label="Team Leaderboard"
+            >
+              <label
+                style={{
+                  color: COLORS.secondary,
+                  fontWeight: 700,
+                  letterSpacing: "1px",
+                  fontSize: "1.07rem",
+                  display: "block",
+                  marginLeft: 18,
+                  marginBottom: 12
+                }}
+              >
+                Team Rankings
+              </label>
+              <table
+                style={{
+                  width: "100%",
+                  borderCollapse: "separate",
+                  borderSpacing: 0,
+                  background: "#fff",
+                  borderRadius: 10,
+                  overflow: "hidden",
+                  boxShadow: "0 0.6px 4px 0 #e4edfc22"
+                }}
+              >
+                <thead>
+                  <tr style={{ background: COLORS.primary }}>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "10px 8px",
+                      borderTopLeftRadius: 10,
+                      textAlign: "center"
+                    }}>#</th>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "10px 8px",
+                      textAlign: "left"
+                    }}>Team</th>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "10px 8px",
+                      textAlign: "center"
+                    }}>Played</th>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "10px 8px",
+                      textAlign: "center"
+                    }}>Won</th>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "10px 8px",
+                      textAlign: "center"
+                    }}>Points</th>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "10px 8px",
+                      borderTopRightRadius: 10,
+                      textAlign: "center"
+                    }}>NRR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teamLeaderboard.map((team, i) => (
+                    <tr
+                      key={team.rank}
+                      style={{
+                        background: i % 2 === 0 ? "#f8fbff" : "#eaf3fd",
+                        fontWeight: team.rank === 1 ? 600 : 500
+                      }}
+                    >
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: COLORS.accent,
+                        textAlign: "center",
+                        fontWeight: 700
+                      }}>{team.rank}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: COLORS.primary,
+                        fontWeight: 600
+                      }}>{team.name}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: "#223",
+                        textAlign: "center"
+                      }}>{team.played}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: COLORS.secondary,
+                        textAlign: "center"
+                      }}>{team.won}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: "#212121",
+                        fontWeight: 600,
+                        textAlign: "center"
+                      }}>{team.pts}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: "#3b2",
+                        textAlign: "center"
+                      }}>{team.nrr}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div style={{
+                marginTop: 8,
+                color: "#607199",
+                fontSize: "0.96em",
+                marginLeft: 6
+              }}>
+                <span>
+                  <span style={{ color: COLORS.accent, fontWeight: 700 }}>{teamLeaderboard[0].name}</span> is currently on top of the table!
+                </span>
+              </div>
+            </div>
+
+            {/* Player Leaderboard Table */}
+            <div
+              style={{
+                overflowX: "auto",
+                background: "#f9fbfe",
+                borderRadius: 14,
+                border: `1px solid ${COLORS.accent}22`,
+                boxShadow: "0 1px 8px 0 rgba(30,136,229,0.05)",
+                padding: "18px 10px 8px 10px",
+                maxWidth: 520
+              }}
+              aria-label="Player Leaderboard"
+            >
+              <label
+                style={{
+                  color: COLORS.primary,
+                  fontWeight: 700,
+                  letterSpacing: "1px",
+                  fontSize: "1.06rem",
+                  display: "block",
+                  marginLeft: 18,
+                  marginBottom: 12
+                }}
+              >
+                Top Players
+              </label>
+              <table
+                style={{
+                  width: "100%",
+                  borderCollapse: "separate",
+                  borderSpacing: 0,
+                  background: "#fff",
+                  borderRadius: 10,
+                  overflow: "hidden",
+                  boxShadow: "0 0.5px 3px 0 #e4edfc22"
+                }}
+              >
+                <thead>
+                  <tr style={{ background: COLORS.accent }}>
+                    <th style={{
+                      color: "#584d1b",
+                      fontWeight: 600,
+                      fontSize: "1.06em",
+                      padding: "10px 8px",
+                      borderTopLeftRadius: 10,
+                      textAlign: "center"
+                    }}>#</th>
+                    <th style={{
+                      color: "#584d1b",
+                      fontWeight: 600,
+                      fontSize: "1.06em",
+                      padding: "10px 8px",
+                      textAlign: "left"
+                    }}>Player</th>
+                    <th style={{
+                      color: "#584d1b",
+                      fontWeight: 600,
+                      fontSize: "1.06em",
+                      padding: "10px 8px",
+                      textAlign: "left"
+                    }}>Team</th>
+                    <th style={{
+                      color: "#584d1b",
+                      fontWeight: 600,
+                      fontSize: "1.06em",
+                      padding: "10px 8px",
+                      textAlign: "center"
+                    }}>Runs</th>
+                    <th style={{
+                      color: "#584d1b",
+                      fontWeight: 600,
+                      fontSize: "1.06em",
+                      padding: "10px 8px",
+                      borderTopRightRadius: 10,
+                      textAlign: "center"
+                    }}>Wickets</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {playerLeaderboard.map((player, i) => (
+                    <tr
+                      key={player.rank}
+                      style={{
+                        background: i % 2 === 0 ? "#faf8f1" : "#fff8e1",
+                        fontWeight: player.rank === 1 ? 700 : 500
+                      }}
+                    >
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: COLORS.accent,
+                        textAlign: "center",
+                        fontWeight: 700
+                      }}>{player.rank}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: COLORS.primary,
+                        fontWeight: 600
+                      }}>{player.name}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: COLORS.secondary,
+                        fontWeight: 500
+                      }}>{player.team}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: "#223",
+                        textAlign: "center"
+                      }}>{player.runs}</td>
+                      <td style={{
+                        padding: "9.5px 8px",
+                        color: "#6d3",
+                        textAlign: "center"
+                      }}>{player.wickets}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div style={{
+                marginTop: 8,
+                color: "#896c11",
+                fontSize: "0.96em",
+                marginLeft: 6
+              }}>
+                <span>
+                  <span style={{ color: COLORS.primary, fontWeight: 700 }}>{playerLeaderboard[0].name}</span> is leading the player charts!
+                </span>
+              </div>
+            </div>
           </section>
         );
       default:
