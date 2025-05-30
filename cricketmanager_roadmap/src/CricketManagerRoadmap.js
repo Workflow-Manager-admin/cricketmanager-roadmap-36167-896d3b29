@@ -212,13 +212,160 @@ function CricketManagerRoadmap() {
           </section>
         );
       case "schedule":
+        // Example match data (replace with backend integration as needed)
+        const matches = [
+          {
+            match: "Match 1",
+            dateTime: "2024-07-01 14:00",
+            venue: "Eden Gardens",
+            teams: "Thunderbolts vs Hurricanes",
+          },
+          {
+            match: "Match 2",
+            dateTime: "2024-07-03 17:30",
+            venue: "Wankhede Stadium",
+            teams: "Strikers vs Titans",
+          },
+          {
+            match: "Match 3",
+            dateTime: "2024-07-07 15:00",
+            venue: "Chinnaswamy Stadium",
+            teams: "Warriors vs Panthers",
+          },
+        ];
         return (
           <section>
-            <h2>Match Scheduling</h2>
-            <p>
-              Schedule matches, set venues, and manage match timings.
+            <h2 style={{ color: COLORS.primary, marginBottom: 10 }}>Match Scheduling</h2>
+            <p style={{ color: COLORS.secondary, marginBottom: 30 }}>
+              View and manage upcoming scheduled cricket matches.
             </p>
-            {/* Future: Match calendar / schedule actions */}
+            <div
+              style={{
+                overflowX: "auto",
+                background: "#f7faff",
+                borderRadius: 12,
+                boxShadow: "0 1px 6px 0 rgba(30,136,229,0.08)",
+                border: `1px solid ${COLORS.primary}22`,
+                padding: "18px 14px 8px 14px",
+                minWidth: 440,
+                marginBottom: 10,
+              }}
+            >
+              <table
+                style={{
+                  width: "100%",
+                  borderCollapse: "separate",
+                  borderSpacing: 0,
+                  background: "#fff",
+                  boxShadow: "0 0.5px 3px 0 #e4edfc55",
+                  borderRadius: 10,
+                  overflow: "hidden",
+                }}
+                aria-label="Scheduled Matches Table"
+              >
+                <thead>
+                  <tr style={{
+                    background: COLORS.primary,
+                  }}>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "12px 10px",
+                      borderTopLeftRadius: 10,
+                      textAlign: "left",
+                      letterSpacing: "0.5px",
+                    }}>Match</th>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "12px 10px",
+                      textAlign: "left",
+                    }}>Date/Time</th>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "12px 10px",
+                      textAlign: "left",
+                    }}>Venue</th>
+                    <th style={{
+                      color: "#fff",
+                      fontWeight: 600,
+                      fontSize: "1.07em",
+                      padding: "12px 10px",
+                      borderTopRightRadius: 10,
+                      textAlign: "left",
+                    }}>Teams</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {matches.map((m, i) => (
+                    <tr
+                      key={m.match}
+                      style={{
+                        background: i % 2 === 0 ? "#f8fbff" : "#e9f1fb",
+                        transition: "background 0.16s",
+                      }}
+                    >
+                      <td style={{
+                        padding: "11px 10px",
+                        color: COLORS.secondary,
+                        fontWeight: 500,
+                        borderBottom: `1px solid ${COLORS.primary}11`,
+                      }}>
+                        {m.match}
+                      </td>
+                      <td style={{
+                        padding: "11px 10px",
+                        color: "#354",
+                        fontWeight: 500,
+                        borderBottom: `1px solid ${COLORS.primary}11`,
+                        fontSize: "0.98em"
+                      }}>
+                        {m.dateTime}
+                      </td>
+                      <td style={{
+                        padding: "11px 10px",
+                        color: COLORS.primary,
+                        fontWeight: 500,
+                        borderBottom: `1px solid ${COLORS.primary}11`,
+                      }}>
+                        {m.venue}
+                      </td>
+                      <td style={{
+                        padding: "11px 10px",
+                        color: "#212121",
+                        fontWeight: 500,
+                        borderBottom: `1px solid ${COLORS.primary}11`,
+                      }}>
+                        {m.teams}
+                      </td>
+                    </tr>
+                  ))}
+                  {matches.length === 0 && (
+                    <tr>
+                      <td colSpan={4} style={{
+                        padding: "14px 10px",
+                        textAlign: "center",
+                        color: COLORS.accent,
+                        fontWeight: 500
+                      }}>
+                        No matches scheduled.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            <div style={{
+              color: COLORS.textSecondary,
+              fontSize: "0.99em",
+              marginTop: 4,
+            }}>
+              To schedule a match, please use the upcoming scheduling feature (coming soon).
+            </div>
           </section>
         );
       case "stats":
