@@ -1,9 +1,14 @@
 :root {
-  --base-light: #00ffff;
-  --base-dark: #00008b;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
+  /* CricketManager Roadmap Light Theme Colors */
+  --primary: #1e88e5;
+  --secondary: #43a047;
+  --accent: #fbc02d;
+  --background: #f6f9fc;
+  --sidebar-bg: #e3eaf4;
+  --surface: #fff;
+  --text-primary: #222;
+  --text-secondary: #506680;
+  --border-color: #d1e1f5;
 }
 
 body {
