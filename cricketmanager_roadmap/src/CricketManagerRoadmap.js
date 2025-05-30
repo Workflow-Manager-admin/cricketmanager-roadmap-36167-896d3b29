@@ -369,13 +369,156 @@ function CricketManagerRoadmap() {
           </section>
         );
       case "stats":
+        // Example player metrics data for the bar chart
+        // You could expand with more metrics such as wickets, averages, etc.
+        const playerStats = [
+          { name: "A. Sharma", runs: 512, wickets: 7, avg: 56.9 },
+          { name: "R. Kumar", runs: 405, wickets: 12, avg: 44.2 },
+          { name: "P. Singh", runs: 370, wickets: 3, avg: 41.1 },
+          { name: "L. James", runs: 180, wickets: 16, avg: 22.5 },
+          { name: "S. Patel", runs: 298, wickets: 1, avg: 32.4 }
+        ];
+
+        // Inline SVG Bar Chart for Player Runs
+        function PlayerStatsBarChart({ data, metric, barColor, accentColor, secondaryColor }) {
+          // data: array of objects, e.g., [{name, runs}]
+          // metric: string, property to visualize, e.g., "runs"
+          const maxVal = Math.max(...data.map(d => d[metric]));
+          const chartHeight = 170;
+          const chartWidth = 420;
+          const barGap = 10;
+          const barWidth = 46;
+          const labelFont = 13;
+          return (
+            <svg width={chartWidth} height={chartHeight + 42} style={{ width: "100%", maxWidth: chartWidth, display: "block", marginTop: 6 }}>
+              {/* Axes */}
+              <line x1="50" y1="16" x2="50" y2={chartHeight} stroke={secondaryColor} strokeWidth="1" />
+              <line x1="50" y1={chartHeight} x2={chartWidth-18} y2={chartHeight} stroke={secondaryColor} strokeWidth="1" />
+              {/* Bars */}
+              {data.map((player, idx) => {
+                const value = player[metric];
+                const barH = (value / maxVal) * (chartHeight - 36);
+                const x = 61 + idx * (barWidth + barGap);
+                const y = chartHeight - barH;
+                return (
+                  <g key={player.name}>
+                    {/* Bar */}
+                    <rect
+                      x={x}
+                      y={y}
+                      width={barWidth}
+                      height={barH}
+                      rx="7"
+                      fill={barColor}
+                      style={{ filter: `drop-shadow(0 2px 9px ${barColor}22)` }}
+                    />
+                    {/* Value label on top */}
+                    <text
+                      x={x + barWidth / 2}
+                      y={y - 8}
+                      fontSize={labelFont}
+                      textAnchor="middle"
+                      fill={accentColor}
+                      fontWeight="bold"
+                    >
+                      {value}
+                    </text>
+                    {/* Player name label below */}
+                    <text
+                      x={x + barWidth / 2}
+                      y={chartHeight + 22}
+                      fontSize="12"
+                      textAnchor="middle"
+                      fill={secondaryColor}
+                      fontWeight="500"
+                    >
+                      {player.name}
+                    </text>
+                  </g>
+                );
+              })}
+              {/* Y-axis ticks */}
+              {[0, 0.25, 0.5, 0.75, 1].map((t, i) => {
+                const y = chartHeight - t * (chartHeight - 36);
+                return (
+                  <g key={i}>
+                    <line x1="45" x2="50" y1={y} y2={y} stroke={secondaryColor} strokeWidth="1"/>
+                    <text x="35" y={y+4} fontSize="11" textAnchor="end" fill={secondaryColor}>
+                      {Math.round(maxVal * t)}
+                    </text>
+                  </g>
+                );
+              })}
+              {/* X-axis label */}
+              <text
+                x={chartWidth / 2 + 14}
+                y={chartHeight + 38}
+                fontSize={13}
+                textAnchor="middle"
+                fill={accentColor}
+                fontWeight="bold"
+                letterSpacing="1"
+              >
+                Player
+              </text>
+              {/* Y-axis label */}
+              <text
+                x="12"
+                y={chartHeight / 2 + 20}
+                fontSize={13}
+                textAnchor="middle"
+                fill={barColor}
+                fontWeight="bold"
+                transform={`rotate(-90 12,${chartHeight / 2 + 20})`}
+              >
+                {metric.charAt(0).toUpperCase() + metric.slice(1)}
+              </text>
+            </svg>
+          );
+        }
+
         return (
           <section>
-            <h2>Player Statistics</h2>
-            <p>
-              View and analyze player stats such as runs, wickets, averages.
+            <h2 style={{ color: COLORS.primary, marginBottom: 12 }}>Player Statistics</h2>
+            <p style={{ color: COLORS.secondary, marginBottom: 24 }}>
+              Visualize and compare key player performance metrics for the current season.
             </p>
-            {/* Future: Stats table/chart */}
+            <div style={{
+              background: "#f9fbfe",
+              border: `1px solid ${COLORS.primary}19`,
+              borderRadius: 14,
+              padding: "32px 16px 36px 8px",
+              marginBottom: 8,
+              boxShadow: "0 2px 12px 0 #daf2ff13"
+            }}>
+              <label style={{
+                color: COLORS.secondary,
+                fontWeight: "bold",
+                letterSpacing: "1px",
+                fontSize: "1rem",
+                display: "block",
+                marginBottom: "10px",
+                marginLeft: 18
+              }}>
+                Runs (bar chart)
+              </label>
+              <PlayerStatsBarChart
+                data={playerStats}
+                metric="runs"
+                barColor={COLORS.primary}
+                secondaryColor={COLORS.secondary}
+                accentColor={COLORS.accent}
+              />
+              <div style={{ marginTop: 18, marginLeft: 18 }}>
+                <span style={{
+                  fontSize: "0.98em",
+                  color: "#537"
+                }}>
+                  Chart above shows top player runs. More metrics (e.g., wickets/avg) coming soon!
+                </span>
+              </div>
+            </div>
+            {/* Optionally, show basic stats table below if required */}
           </section>
         );
       case "leaderboard":
