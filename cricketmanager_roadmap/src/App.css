@@ -1,23 +1,62 @@
 :root {
-  /* CricketManager Roadmap Light Theme Colors */
+  /* Light Theme Colors */
   --primary: #1e88e5;
   --secondary: #43a047;
   --accent: #fbc02d;
   --background: #f6f9fc;
   --sidebar-bg: #e3eaf4;
   --surface: #fff;
+  --table-bg-alt: #f8fbff;
+  --table-bg: #fff;
+  --table-bg-secondary: #e9f1fb;
   --text-primary: #222;
   --text-secondary: #506680;
+  --text-accent: #57490f;
   --border-color: #d1e1f5;
+  --box-shadow: 0 1px 8px 0 rgba(30,136,229,0.07);
+
+  /* Icon contrast */
+  --icon-main: #1e88e5;
+
+  /* Misc */
+  --input-bg: #fff;
+  --input-border: #aac8ec;
+
+  /* Highlight for selected nav */
+  --sidebar-selected-bg: var(--primary);
+  --sidebar-selected-text: #fff;
 }
 
 body {
   margin: 0;
   font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background-color: var(--base-dark);
-  color: var(--text-color);
+  background-color: var(--background);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body.dark {
+  /* Dark Theme Colors */
+  --primary: #7bb8fc;
+  --secondary: #7ecd74;
+  --accent: #ffd557;
+  --background: #16181b;
+  --sidebar-bg: #242731;
+  --surface: #22242a;
+  --table-bg: #23242b;
+  --table-bg-alt: #181a1f;
+  --table-bg-secondary: #1a1c22;
+  --text-primary: #e3eaf4;
+  --text-secondary: #98acc5;
+  --text-accent: #ffe38b;
+  --border-color: #2c3547;
+  --box-shadow: 0 2px 18px 0 rgba(40, 80, 200, 0.11);
+  --icon-main: #ffe38b;
+  --input-bg: #242731;
+  --input-border: #38435b;
+  --sidebar-selected-bg: var(--primary);
+  --sidebar-selected-text: #16181b;
 }
 
 .app {
@@ -26,8 +65,10 @@ body {
   flex-direction: column;
 }
 
+/* Sidebar, Navbar, Main area, Utilities */
+
 .navbar {
-  background-color: var(--base-dark);
+  background-color: var(--surface);
   padding: 16px;
   display: flex;
   align-items: center;
@@ -38,6 +79,7 @@ body {
   width: 100%;
   box-sizing: border-box;
   z-index: 100;
+  color: var(--text-primary);
 }
 
 .logo {
@@ -46,10 +88,11 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  color: var(--primary);
 }
 
 .logo-symbol {
-  color: var(--base-light);
+  color: var(--icon-main);
 }
 
 .container {
@@ -60,6 +103,7 @@ body {
   box-sizing: border-box;
 }
 
+/* Hero, Typography, etc. */
 .hero {
   padding-top: 120px;
   padding-bottom: 64px;
@@ -71,7 +115,7 @@ body {
 }
 
 .subtitle {
-  color: var(--base-light);
+  color: var(--primary);
   font-weight: 500;
   font-size: 1.1rem;
 }
@@ -81,6 +125,7 @@ body {
   font-weight: 600;
   line-height: 1.2;
   margin: 0;
+  color: var(--text-primary);
 }
 
 .description {
@@ -91,9 +136,10 @@ body {
   margin-bottom: 16px;
 }
 
+/* Buttons */
 .btn {
-  background-color: var(--base-light);
-  color: white;
+  background-color: var(--primary);
+  color: #fff;
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
@@ -101,13 +147,156 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  outline: none;
 }
 
 .btn:hover {
-  background-color: #7691ff;
+  background-color: #406cb0;
 }
 
 .btn-large {
   padding: 12px 24px;
   font-size: 1.1rem;
+}
+
+/* Sidebar styling pattern for all themes */
+.sidebar {
+  min-width: 210px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 0 0 10px 0 rgba(30,136,229,0.04);
+  color: var(--text-primary);
+}
+
+/* Selected nav pattern */
+.sidebar-nav-btn.selected,
+.sidebar-nav-btn[aria-current="page"],
+.sidebar .sidebar-nav-btn.selected,
+.sidebar nav button[aria-current="page"] {
+  background: var(--sidebar-selected-bg) !important;
+  color: var(--sidebar-selected-text) !important;
+}
+
+.sidebar .sidebar-nav-btn,
+.sidebar nav button {
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  outline: none;
+  text-align: left;
+  padding: 14px 24px;
+  margin: 2px 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 0 24px 24px 0;
+  transition: background 0.15s;
+}
+
+.sidebar .sidebar-nav-btn:hover,
+.sidebar nav button:hover {
+  background: var(--primary);
+  color: var(--sidebar-selected-text);
+}
+
+/* Table styles for both themes */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--table-bg);
+  box-shadow: var(--box-shadow);
+  border-radius: 10px;
+  overflow: hidden;
+  color: var(--text-primary);
+}
+
+.table thead tr {
+  background: var(--primary);
+}
+
+.table thead th {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.07em;
+  padding: 12px 10px;
+}
+
+.table tbody tr {
+  background: var(--table-bg-alt);
+  transition: background 0.16s;
+}
+.table tbody tr:nth-child(even) {
+  background: var(--table-bg-secondary);
+}
+
+.table td, .table th {
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Forms and inputs */
+input, textarea, select {
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  box-sizing: border-box;
+  transition: border 0.18s;
+  outline: none;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+}
+
+label {
+  font-weight: 600;
+  color: var(--primary);
+}
+small {
+  color: var(--secondary);
+}
+
+/* General surface for dashboards/sections */
+.section-surface, .main-surface {
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: var(--box-shadow);
+  padding: 36px 32px;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  background: var(--sidebar-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 5px;
+}
+
+/* Theme toggle switch styling */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--accent);
+  color: #212121;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 7px 18px;
+  font-size: 0.97rem;
+  cursor: pointer;
+  min-width: 90px;
+  transition: background 0.18s;
+}
+.theme-toggle-btn:active {
+  background: #ffe38b;
 }
