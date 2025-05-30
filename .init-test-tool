@@ -1,0 +1,4 @@
+{
+    "command": "npm run test",
+    "working_directory": "/home/kavia/workspace/code-generation/cricketmanager-roadmap-36167-896d3b29/cricketmanager_roadmap"
+}
