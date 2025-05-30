@@ -66,11 +66,149 @@ function CricketManagerRoadmap() {
       case "team":
         return (
           <section>
-            <h2>Team Management</h2>
-            <p>
+            <h2 style={{ color: COLORS.primary, marginBottom: 8 }}>Team Management</h2>
+            <p style={{ color: COLORS.secondary, marginBottom: 26 }}>
               Create, edit, and manage cricket teams, players, coaches, and staff.
             </p>
-            {/* Future: List teams / team actions */}
+            <form
+              style={{
+                background: "#f7faff",
+                borderRadius: 12,
+                boxShadow: "0 1px 8px 0 rgba(30,136,229,0.07)",
+                padding: "24px 20px",
+                maxWidth: 440,
+                marginTop: 8,
+                border: `1px solid ${COLORS.primary}22`
+              }}
+              onSubmit={e => {
+                e.preventDefault();
+                // Basic validation: show alert if empty fields
+                const form = e.target;
+                const name = form.teamName.value.trim();
+                const players = form.players.value.trim();
+                if (!name) {
+                  alert("Please enter a Team Name.");
+                  form.teamName.focus();
+                  return;
+                }
+                if (!players) {
+                  alert("Please provide at least one Player.");
+                  form.players.focus();
+                  return;
+                }
+                alert("Team details submitted! (form state not saved in demo)");
+                form.reset();
+              }}
+            >
+              <div style={{ marginBottom: 18 }}>
+                <label htmlFor="teamName" style={{ fontWeight: 600, color: COLORS.primary, display: "block", marginBottom: 6 }}>
+                  Team Name<span style={{ color: COLORS.accent }}> *</span>
+                </label>
+                <input
+                  id="teamName"
+                  name="teamName"
+                  type="text"
+                  placeholder="e.g., Thunderbolts"
+                  required
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    fontSize: "1rem",
+                    borderRadius: 6,
+                    border: `1px solid ${COLORS.primary}55`,
+                    background: "#fff",
+                    color: "#233",
+                    marginTop: 1,
+                    marginBottom: 0
+                  }}
+                />
+              </div>
+              <div style={{ marginBottom: 18 }}>
+                <label htmlFor="players" style={{ fontWeight: 600, color: COLORS.primary, display: "block", marginBottom: 6 }}>
+                  Players<span style={{ color: COLORS.accent }}> *</span>
+                </label>
+                <textarea
+                  id="players"
+                  name="players"
+                  rows={3}
+                  placeholder="Enter player names, one per line"
+                  required
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    fontFamily: "inherit",
+                    fontSize: "1rem",
+                    borderRadius: 6,
+                    border: `1px solid ${COLORS.primary}33`,
+                    background: "#fff",
+                    color: "#233"
+                  }}
+                />
+                <small style={{ color: COLORS.secondary }}>Separate each player with a new line.</small>
+              </div>
+              <div style={{ marginBottom: 18 }}>
+                <label htmlFor="coaches" style={{ fontWeight: 600, color: COLORS.primary, display: "block", marginBottom: 6 }}>
+                  Coaches
+                </label>
+                <textarea
+                  id="coaches"
+                  name="coaches"
+                  rows={2}
+                  placeholder="Enter coach names, one per line"
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    fontFamily: "inherit",
+                    fontSize: "1rem",
+                    borderRadius: 6,
+                    border: `1px solid ${COLORS.primary}33`,
+                    background: "#fff",
+                    color: "#233"
+                  }}
+                />
+                <small style={{ color: COLORS.secondary }}>Optional: List one per line.</small>
+              </div>
+              <div style={{ marginBottom: 24 }}>
+                <label htmlFor="staff" style={{ fontWeight: 600, color: COLORS.primary, display: "block", marginBottom: 6 }}>
+                  Staff
+                </label>
+                <textarea
+                  id="staff"
+                  name="staff"
+                  rows={2}
+                  placeholder="Enter staff names, one per line"
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    fontFamily: "inherit",
+                    fontSize: "1rem",
+                    borderRadius: 6,
+                    border: `1px solid ${COLORS.primary}33`,
+                    background: "#fff",
+                    color: "#233"
+                  }}
+                />
+                <small style={{ color: COLORS.secondary }}>Optional: List one per line.</small>
+              </div>
+              <button
+                type="submit"
+                className="btn"
+                style={{
+                  backgroundColor: COLORS.primary,
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: 6,
+                  padding: "10px 26px",
+                  fontWeight: 600,
+                  fontSize: "1.08rem",
+                  cursor: "pointer",
+                  boxShadow: `0 0 5px 0 ${COLORS.primary}13`,
+                  marginTop: 8,
+                }}
+              >
+                Save Team
+              </button>
+            </form>
           </section>
         );
       case "schedule":
